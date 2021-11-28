@@ -1,4 +1,5 @@
 const base = 'https://lib-sys-api.herokuapp.com';
+// const base = 'http://pop:1337';
 
 async function send({ method, path, data, token }) {
 	const opts = {

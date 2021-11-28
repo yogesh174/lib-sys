@@ -11,16 +11,6 @@
 
 		if (user.role.name === 'Admin' || user.role.name === 'Librarian')
 			data.issues = await api.get('issues', session.jwt);
-		else {
-			data.user.booksBorrowed.forEach(async (book) => {
-				let test = await api.get(`books/${book.id}`, session.jwt);
-				console.log(test);
-			});
-
-			console.log(data.user);
-			data.user.book = await api.get(`book/${data.user.book}`, session.jwt);
-			console.log(data.user.book);
-		}
 
 		return { props: data };
 	}
@@ -32,11 +22,9 @@
 	export let issues, user;
 
 	if (user.role.name === 'Student') issues = user.booksBorrowed;
-
+	
 	const issued = issues.filter((issue) => issue.status === 'issued');
 	const returned = issues.filter((issue) => issue.status === 'returned');
-
-	console.log(returned);
 
 	const returnBook = (issue) => {
 		const date = new Date();
@@ -81,7 +69,9 @@
 								<th>Issued to</th>
 								<th>Issued on</th>
 								<th>Issued by</th>
-								<th>Return</th>
+								{#if user.role.name === 'Admin' || user.role.name === 'Librarian'}
+									<th>Return</th>
+								{/if}
 							</tr>
 						</thead>
 						<tbody>
@@ -92,6 +82,7 @@
 									<td>{issue.issuedTo.username}</td>
 									<td>{issue.issuedOn}</td>
 									<td>{issue.issuedBy.username}</td>
+									{#if user.role.name === 'Admin' || user.role.name === 'Librarian'}
 									<td>
 										<form on:submit={() => returnBook(issue)}>
 											<button for="my-modal-1" class="btn btn-primary" type="submit">
@@ -99,6 +90,7 @@
 											</button>
 										</form>
 									</td>
+									{/if}
 								</tr>
 							{/each}
 						</tbody>
