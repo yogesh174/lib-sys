@@ -27,7 +27,7 @@
 </script>
 
 <svelte:head>
-	<title>Sign in</title>
+	<title>Log in</title>
 </svelte:head>
 
 <div class="hero min-h-screen bg-base-200">
