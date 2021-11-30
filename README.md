@@ -1,38 +1,30 @@
-# create-svelte
+# LibSys
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+LibSys is a complete library management system for adding, issuing, and returning books built on sveltekit and strapi. This repository is the frontend endpoint for the application. Checkout [this repo](https://github.com/yogesh174/lib-sys-api) for the backend. 
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
+## Develop
 
 ```bash
-# create a new project in the current directory
-npm init svelte@next
+# clone the repo
+git clone https://github.com/yogesh174/lib-sys.git
 
-# create a new project in my-app
-npm init svelte@next my-app
+# install packages
+yarn install
+
+# start the application
+yarn run dev --host
 ```
 
-> Note: the `@next` is temporary
+> Note: To change the backend endpoint, navigate to [`/src/lib/api.js`](https://github.com/yogesh174/lib-sys/blob/36cb8d68ca6d054e80309786f19ff997a9c717ad/src/lib/api.js#L1) and modify the `base` variable. 
 
-## Developing
+## Demo
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+[Live deployment](https://lib-sys.vercel.app/)
 
-```bash
-npm run dev
+> Note: It is slow and sometimes doesn't load. Just refresh if it doesn't load or throws some error.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+## Similar applications
 
-## Building
-
-Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
-
-```bash
-npm run build
-```
-
-> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
+Checkout other applications similar to this one
+- [Online tutorials system](https://github.com/yogesh174/vid-onl)
+- [Hostel management system](https://github.com/yogesh174/htl-mgmt)
