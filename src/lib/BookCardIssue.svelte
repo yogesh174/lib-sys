@@ -26,8 +26,7 @@
 								<label class="label">
 									<span class="label-text">Username</span>
 								</label>
-								<!-- <Select {optionIdentifier} {labelIdentifier} {items} on:select={handleSelect}/> -->
-								<select bind:value={user}>
+								<select bind:value={user} class="input input-primary input-bordered">
 									{#each users as user}
 										<option value={user.id}>
 											{user.username}

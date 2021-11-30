@@ -4,10 +4,17 @@
 	import '../app.css';
 	import { session } from '$app/stores';
 	import { post } from '$lib/utils.js';
-	
+	import { navigating } from '$app/stores';
+	import { RingLoader } from 'svelte-loading-spinners';
+	import { goto } from '$app/navigation';
+	let isLoading = false;
+
 	async function logout() {
-		await post(`auth/logout`);
+		isLoading = true;
+		await post(`/auth/logout`);
+		goto('/login');
 		location.reload();
+		isLoading = false;
 	}
 
 	let user = $session.user;
@@ -39,12 +46,59 @@
 		</Header>
 	{/if}
 	
-	<SideBar>
-		<div class="drawer-content"> <!-- flex flex-col items-center justify-center  -->
-			<!-- <label for="my-drawer-2" class="mb-4 btn btn-primary drawer-button lg:hidden">open menu</label
-			> -->
+	{#if user && user.role.name === 'Admin'}
+		<SideBar>
+			<div class="drawer-content">
+				{#if $navigating || isLoading}
+					<div class="h-full w-full flex justify-center">
+						<div class="m-auto">
+							<RingLoader size="5" color="#86d2f9" unit="em" duration="2s" />
+						</div>
+					</div>
+				{:else}
+					<slot />
+				{/if}
+			</div>
+			<div slot="menu">
+				<li>
+					<a href="/">Home</a>
+				</li>
+				<li>
+					<a href="/books">Books</a>
+				</li>
+				<li>
+					<a href="/issues">Issues</a>
+				</li>
+				<li>
+					<a href="/users">Users</a>
+				</li>
+			</div>
+		</SideBar>
+	{:else if user}
+		<SideBar>
+			<div class="drawer-content">
+				{#if $navigating || isLoading}
+					<div class="h-full w-full flex justify-center">
+						<div class="m-auto">
+							<RingLoader size="5" color="#86d2f9" unit="em" duration="2s" />
+						</div>
+					</div>
+				{:else}
+					<slot />
+				{/if}
+			</div>
 
-			<slot />
-		</div>
-	</SideBar>
+			<div slot="menu">
+				<li>
+					<a href="/">Home</a>
+				</li>
+				<li>
+					<a href="/books">Books</a>
+				</li>
+				<li>
+					<a href="/issues">Issues</a>
+				</li>
+			</div>
+		</SideBar>
+	{/if}
 </main>
