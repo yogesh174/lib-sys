@@ -22,7 +22,7 @@
 				<form on:submit|once>
 					<div class="px-4 py-5 space-y-6 sm:p-6">
 						<div class="grid grid-cols-2 gap-4">
-							<div class="form-control text-gray-700">
+							<div class="form-control">
 								<label class="label">
 									<span class="label-text">Username</span>
 								</label>
