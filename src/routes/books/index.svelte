@@ -62,17 +62,19 @@
 		isLoading = false;
 	};
 
-	let bookForm = {};
-	const issueBook = (book, bookForm) => {
+	let bookForm = {}, bookIssued;
+	const issueBook = async (book, bookForm) => {
+		isLoading = true;
 		let issuedTo = bookForm[book];
-		const data = { book, issuedTo };
+		const data = { book: bookIssued, issuedTo };
 		bookForm = {};
 		const date = new Date();
 		data['issuedOn'] = date.toLocaleString();
 		data['issuedBy'] = user.id;
 		data['status'] = 'issued';
 
-		api.post('issues', data, $session.jwt);
+		const response = await api.post('issues', data, $session.jwt);
+		isLoading = false;
 	};
 
 	let files = {
@@ -107,8 +109,10 @@
 							author={book.author}
 							cover={book.cover.url}
 							categories={book.categories}
+							id={book.id}
 							{users}
 							bind:user={bookForm[book.id]}
+							bind:bookIssued={bookIssued}
 							on:click={() => {
 								bookForm[book.id] = '';
 							}}
@@ -132,7 +136,7 @@
 	{#if user.role.name === 'Admin' || user.role.name === 'Librarian'}
 		<label
 			for="my-modal-2"
-			class="btn btn-primary btn-circle btn-md absolute bottom-2 right-2 modal-button"
+			class="btn btn-primary btn-circle btn-md absolute bottom-2 right-5 modal-button"
 		>
 			<Icon icon="bi:plus-lg" width="25" height="25" />
 		</label>

@@ -11,7 +11,7 @@
 	<slot />
 
 	<figure>
-		<img src={cover} />
+		<img src={cover}/>
 	</figure>
 
 	<div class="card-body">
