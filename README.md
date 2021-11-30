@@ -22,3 +22,9 @@ yarn run dev --host
 [Live deployment](https://lib-sys.vercel.app/)
 
 > Note: It is slow and sometimes doesn't load. Just refresh if it doesn't load or throws some error.
+
+## Similar applications
+
+Checkout other applications similar to this one
+- [Online tutorials system](https://github.com/yogesh174/vid-onl)
+- [Hostel management system](https://github.com/yogesh174/htl-mgmt)
